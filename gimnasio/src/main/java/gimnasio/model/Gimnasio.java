@@ -6,23 +6,40 @@ public class Gimnasio {
 
     private String nombre;
     private ArrayList<Cliente> listaClientes;
-    private ArrayList<Entrenador> listaEntrenador;
+    private ArrayList<Entrenador> listaEntrenadores;
     private ArrayList<Reserva> listaReservas;
-    // mas listas
+    private ArrayList<Clase> listaClases;
 
-    public Gimnasio(String nombre, ArrayList<Entrenador> listaEntrenador, ArrayList<Cliente> listaClientes, ArrayList<Reserva> listaReservas) {
+    public Gimnasio(String nombre, ArrayList<Entrenador> listaEntrenadores, ArrayList<Cliente> listaClientes, ArrayList<Reserva> listaReservas, ArrayList<Clase> listaClases) {
         this.nombre = nombre;
-        this.listaEntrenador = listaEntrenador;
+        this.listaEntrenadores = listaEntrenadores;
         this.listaClientes = listaClientes;
+        this.listaReservas = listaReservas;
+        this.listaClases = listaClases;
+    }
+
+    public ArrayList<Clase> getListaClases() {
+        return listaClases;
+    }
+
+    public void setListaClases(ArrayList<Clase> listaClases) {
+        this.listaClases = listaClases;
+    }
+
+    public ArrayList<Reserva> getListaReservas() {
+        return listaReservas;
+    }
+
+    public void setListaReservas(ArrayList<Reserva> listaReservas) {
         this.listaReservas = listaReservas;
     }
 
-    public ArrayList<Entrenador> getListaEntrenador() {
-        return listaEntrenador;
+    public ArrayList<Entrenador> getListaEntrenadores() {
+        return listaEntrenadores;
     }
 
-    public void setListaEntrenador(ArrayList<Entrenador> listaEntrenador) {
-        this.listaEntrenador = listaEntrenador;
+    public void setListaEntrenadores(ArrayList<Entrenador> listaEntrenadores) {
+        this.listaEntrenadores = listaEntrenadores;
     }
 
     public ArrayList<Cliente> getListaClientes() {
@@ -39,13 +56,5 @@ public class Gimnasio {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public ArrayList<Reserva> getListaReservas() {
-        return listaReservas;
-    }
-
-    public void setListaReservas(ArrayList<Reserva> listaReservas) {
-        this.listaReservas = listaReservas;
     }
 }

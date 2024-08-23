@@ -1,15 +1,16 @@
 package gimnasio.model;
 
-public class Cliente {
+public class Cliente extends  Usuario {
 
     private String correo;
     private String direccion;
     private String telefono;
-    private String contraseña;
+    private String contrasena;
 
-    public Cliente(String correo, String contraseña, String direccion, String telefono) {
+    public Cliente(String nombre, String id, String correo, String contrasena, String direccion, String telefono) {
+        super(nombre, id);
         this.correo = correo;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
         this.direccion = direccion;
         this.telefono = telefono;
     }
@@ -38,11 +39,11 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 }
