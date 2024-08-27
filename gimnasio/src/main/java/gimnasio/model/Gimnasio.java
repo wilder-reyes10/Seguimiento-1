@@ -57,4 +57,11 @@ public class Gimnasio {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    // implementacion de los metodos
+
+    
+
+
+
 }
