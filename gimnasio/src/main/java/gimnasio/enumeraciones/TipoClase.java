@@ -1,5 +1,5 @@
 package gimnasio.enumeraciones;
 
 public enum TipoClase {
-    FUNCIONAL, CROSSFIT
+    YOGA, ZUMBA, CROSSFIT, AEROBICOS, PILATES, MEDITACION
 }

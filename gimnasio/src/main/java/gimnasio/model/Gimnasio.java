@@ -1,6 +1,9 @@
 package gimnasio.model;
 
+import gimnasio.enumeraciones.TipoClase;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class Gimnasio {
 
@@ -248,8 +251,35 @@ public class Gimnasio {
     }
 
     /**
-     * Método para que el cliente pueda buscar clases
+     * Método que le permite al cliente buscar una clase
+     * @param tipoClase el cliente puede buscar la clase con el tipo de clase que desee
+     * @param nombre se necesita el nombre del entrenador para saber con quién puede ver la clase
+     * @return
      */
+    public List<Clase> buscarClase(TipoClase tipoClase, String nombre) {
+
+        List<Clase> clasesEncontradas = new ArrayList<>();
+
+        for (Clase clase : listaClases) {
+            if (clase.getTipoClase() == tipoClase &&
+                    clase.getEntrenador().getNombre().equalsIgnoreCase(nombre)) {
+                clasesEncontradas.add(clase);
+            }
+        }
+
+        if (clasesEncontradas.isEmpty()) {
+            System.out.println("No se encontraron clases para el tipo '" + tipoClase +
+                    "' con el entrenador '" + nombre+ "'.");
+        } else {
+            for (Clase clase : clasesEncontradas) {
+                System.out.println("Clase: " + clase.getTipoClase() +
+                        ", Entrenador: " + clase.getEntrenador().getNombre() +
+                        ", Horarios: " + clase.getHorario());
+            }
+        }
+
+        return clasesEncontradas;
+    }
 
     /**
      * Método para que el cliente pueda reservar una clase
