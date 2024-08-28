@@ -7,14 +7,13 @@ public class Gimnasio {
     private String nombre;
     private ArrayList<Cliente> listaClientes;
     private ArrayList<Entrenador> listaEntrenadores;
-    private ArrayList<Reserva> listaReservas;
     private ArrayList<Clase> listaClases;
 
-    public Gimnasio(String nombre, ArrayList<Entrenador> listaEntrenadores, ArrayList<Cliente> listaClientes, ArrayList<Reserva> listaReservas, ArrayList<Clase> listaClases) {
+    public Gimnasio(String nombre, ArrayList<Entrenador> listaEntrenadores, ArrayList<Cliente> listaClientes,  ArrayList<Clase> listaClases) {
         this.nombre = nombre;
         this.listaEntrenadores = listaEntrenadores;
         this.listaClientes = listaClientes;
-        this.listaReservas = listaReservas;
+
         this.listaClases = listaClases;
     }
 
@@ -26,13 +25,6 @@ public class Gimnasio {
         this.listaClases = listaClases;
     }
 
-    public ArrayList<Reserva> getListaReservas() {
-        return listaReservas;
-    }
-
-    public void setListaReservas(ArrayList<Reserva> listaReservas) {
-        this.listaReservas = listaReservas;
-    }
 
     public ArrayList<Entrenador> getListaEntrenadores() {
         return listaEntrenadores;

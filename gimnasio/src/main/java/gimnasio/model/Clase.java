@@ -4,6 +4,7 @@ import gimnasio.enumeraciones.TipoClase;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Clase {
 
@@ -12,88 +13,31 @@ public class Clase {
     private TipoClase tipoClase;
     private String nombre;
     private int capacidad;
-    private int inscritos;
+    private List<Reserva> inscritos;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
-    //////
     private ArrayList<String> horario;
     private Entrenador entrenador;
 
-    public Clase(String id, int capacidad, TipoClase tipoClase, boolean disponible, String nombre, int inscritos, LocalDate fechaInicio, LocalDate fechaFin, ArrayList<String> horario, Entrenador entrenador) {
-        this.id = id;
+    public Clase(Entrenador entrenador, ArrayList<String> horario, LocalDate fechaFin, LocalDate fechaInicio, List<Reserva> inscritos, int capacidad, String nombre, TipoClase tipoClase, boolean disponible, String id) {
+        this.entrenador = entrenador;
+        this.horario = horario;
+        this.fechaFin = fechaFin;
+        this.fechaInicio = fechaInicio;
+        this.inscritos = inscritos;
         this.capacidad = capacidad;
+        this.nombre = nombre;
         this.tipoClase = tipoClase;
         this.disponible = disponible;
-        this.nombre = nombre;
-        this.inscritos = inscritos;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.horario = horario;
-        this.entrenador = entrenador;
+        this.id = id;
     }
 
-    public Entrenador getEntrenador() {
-        return entrenador;
+    public String getId() {
+        return id;
     }
 
-    public void setEntrenador(Entrenador entrenador) {
-        this.entrenador = entrenador;
-    }
-
-    public ArrayList<String> getHorario() {
-        return horario;
-    }
-
-    public void setHorario(ArrayList<String> horario) {
-        this.horario = horario;
-    }
-
-    public LocalDate getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(LocalDate fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
-    public LocalDate getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(LocalDate fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public int getInscritos() {
-        return inscritos;
-    }
-
-    public void setInscritos(int inscritos) {
-        this.inscritos = inscritos;
-    }
-
-    public int getCapacidad() {
-        return capacidad;
-    }
-
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public TipoClase getTipoClase() {
-        return tipoClase;
-    }
-
-    public void setTipoClase(TipoClase tipoClase) {
-        this.tipoClase = tipoClase;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public boolean isDisponible() {
@@ -104,11 +48,67 @@ public class Clase {
         this.disponible = disponible;
     }
 
-    public String getId() {
-        return id;
+    public TipoClase getTipoClase() {
+        return tipoClase;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setTipoClase(TipoClase tipoClase) {
+        this.tipoClase = tipoClase;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
+    }
+
+    public void setCapacidad(int capacidad) {
+        this.capacidad = capacidad;
+    }
+
+    public List<Reserva> getInscritos() {
+        return inscritos;
+    }
+
+    public void setInscritos(List<Reserva> inscritos) {
+        this.inscritos = inscritos;
+    }
+
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(LocalDate fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public LocalDate getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(LocalDate fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public ArrayList<String> getHorario() {
+        return horario;
+    }
+
+    public void setHorario(ArrayList<String> horario) {
+        this.horario = horario;
+    }
+
+    public Entrenador getEntrenador() {
+        return entrenador;
+    }
+
+    public void setEntrenador(Entrenador entrenador) {
+        this.entrenador = entrenador;
     }
 }
