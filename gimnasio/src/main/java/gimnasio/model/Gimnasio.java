@@ -8,10 +8,8 @@ public class Gimnasio {
     private String direccion;
     private String telefono;
     private ArrayList<Cliente> listaClientes;
-    private ArrayList<Entrenador> listaEntrenadores;
-    private ArrayList<Clase> listaClases;
 
-    public Gimnasio(String nombre, String direccion, String telefono, ArrayList<Cliente> listaClientes, ArrayList<Entrenador> listaEntrenadores, ArrayList<Clase> listaClases) {
+    public Gimnasio() {
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
@@ -19,6 +17,10 @@ public class Gimnasio {
         this.listaEntrenadores = listaEntrenadores;
         this.listaClases = listaClases;
     }
+
+    private ArrayList<Entrenador> listaEntrenadores;
+    private ArrayList<Clase> listaClases;
+
 
     public String getNombre() {
         return nombre;
@@ -92,16 +94,19 @@ public class Gimnasio {
         if(nombre == null || nombre.isBlank()){
             throw new Exception("El nombre es obligatorio");
         }
+        if(telefono == null || telefono.isBlank()){
+            throw new Exception("El teléfono es obligatorio");
+        }
 
         if(correo == null || correo.isBlank()){
-            throw new Exception("El correo electronico es obligatorio");
+            throw new Exception("El correo electrónico es obligatorio");
         }
 
         if(contrasena == null || contrasena.isBlank()){
             throw new Exception("La contraseña es obligatoria");
         }
 
-        if(contrasena.length() < 3) {
+        if(contrasena.length() < 6) {
             throw new Exception("La contraseña debe tener mínimo 6 caracteres");
         }
         // Creación del objeto Usuario usando un constructor
@@ -112,17 +117,75 @@ public class Gimnasio {
 
     }
     /**
-     * Método que busca un Cliente con el numero de identificacion
-     * @param cedula cedula del cliente para buscarlo
-     * @return cliente o null si no existe
+     * Método que agrega un entrenador al gimnasio y verifica que no exista un entrenador con el mismo número de identificación
+     * @param nombre nombre del entrenador
+     * @param id cedula del entrenador
+     * @param especialidad especialidad del entrenador
+     * @throws Exception excepciones para cada uno de los parámetros
      */
-    private Cliente buscarCliente(String cedula){
-        for(int i = 0; i < listaClientes.size(); i++){
-            if(listaClientes.get(i).getId().equals(cedula)){
-                return listaClientes.get(i);
+    public void registrarEntrenador(String nombre, String id, String especialidad) throws Exception{
+
+        if(id == null || id.isBlank()){
+            throw new Exception("Recuerde que el número de cédula es obligatorio");
+        }
+
+        if(buscarEntrenador(id) != null){
+            throw new Exception("Ya existe un entrenador con el número de identificación: "+id);
+        }
+
+        if(nombre == null || nombre.isBlank()){
+            throw new Exception("El nombre es obligatorio");
+        }
+        if(especialidad == null || especialidad.isBlank()){
+            throw new Exception("La especialidad es obligatoria");
+        }
+
+        // Creación del objeto Usuario usando un constructor
+        Entrenador entrenador = new Entrenador(nombre, id, especialidad);
+
+        listaEntrenadores.add(entrenador);
+
+
+    }
+
+    public Entrenador buscarEntrenador(String id)throws Exception{
+
+        //Recorrer la lista de entrenadores
+        for(int i = 0; i<listaEntrenadores.size(); i++){
+            Entrenador entrenador = listaEntrenadores.get(i);
+            if(entrenador.getId().equals(id)){
+                return entrenador;
             }
         }
-        return null;
+
+        //Si no se encontró el estudiante se lanza una excepción
+        throw new Exception("El id "+id+" NO existe");
+    } {
+    }
+
+    /**
+     * Método para imprimir clientes
+     */
+    public void imprimirClientes(){
+        System.out.println(listaClientes);
+    }
+    /**
+     * Método que busca un Cliente con el numero de identificacion
+     * @param id cedula del cliente para buscarlo
+     * @return cliente o null si no existe
+     */
+    public Cliente buscarCliente(String id) throws Exception{
+
+        //Recorrer la lista de clientes
+        for(int i = 0; i<listaClientes.size(); i++){
+            Cliente cliente = listaClientes.get(i);
+            if(cliente.getId().equals(id)){
+                return cliente;
+            }
+        }
+
+        //Si no se encontró el estudiante se lanza una excepción
+        throw new Exception("El id "+id+" NO existe");
     }
     /**
      * Método que actualiza los datos de un usuario
