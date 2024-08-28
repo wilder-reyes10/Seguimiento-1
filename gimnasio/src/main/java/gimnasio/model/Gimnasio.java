@@ -60,7 +60,7 @@ public class Gimnasio {
 
     // implementacion de los metodos
 
-    
+
 
 
 
