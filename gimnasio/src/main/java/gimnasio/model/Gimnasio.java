@@ -5,41 +5,19 @@ import java.util.ArrayList;
 public class Gimnasio {
 
     private String nombre;
+    private String direccion;
+    private String telefono;
     private ArrayList<Cliente> listaClientes;
     private ArrayList<Entrenador> listaEntrenadores;
     private ArrayList<Clase> listaClases;
 
-    public Gimnasio(String nombre, ArrayList<Entrenador> listaEntrenadores, ArrayList<Cliente> listaClientes,  ArrayList<Clase> listaClases) {
+    public Gimnasio(String nombre, String direccion, String telefono, ArrayList<Cliente> listaClientes, ArrayList<Entrenador> listaEntrenadores, ArrayList<Clase> listaClases) {
         this.nombre = nombre;
-        this.listaEntrenadores = listaEntrenadores;
+        this.direccion = direccion;
+        this.telefono = telefono;
         this.listaClientes = listaClientes;
-
-        this.listaClases = listaClases;
-    }
-
-    public ArrayList<Clase> getListaClases() {
-        return listaClases;
-    }
-
-    public void setListaClases(ArrayList<Clase> listaClases) {
-        this.listaClases = listaClases;
-    }
-
-
-    public ArrayList<Entrenador> getListaEntrenadores() {
-        return listaEntrenadores;
-    }
-
-    public void setListaEntrenadores(ArrayList<Entrenador> listaEntrenadores) {
         this.listaEntrenadores = listaEntrenadores;
-    }
-
-    public ArrayList<Cliente> getListaClientes() {
-        return listaClientes;
-    }
-
-    public void setListaClientes(ArrayList<Cliente> listaClientes) {
-        this.listaClientes = listaClientes;
+        this.listaClases = listaClases;
     }
 
     public String getNombre() {
@@ -50,7 +28,173 @@ public class Gimnasio {
         this.nombre = nombre;
     }
 
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public ArrayList<Cliente> getListaClientes() {
+        return listaClientes;
+    }
+
+    public void setListaClientes(ArrayList<Cliente> listaClientes) {
+        this.listaClientes = listaClientes;
+    }
+
+    public ArrayList<Entrenador> getListaEntrenadores() {
+        return listaEntrenadores;
+    }
+
+    public void setListaEntrenadores(ArrayList<Entrenador> listaEntrenadores) {
+        this.listaEntrenadores = listaEntrenadores;
+    }
+
+    public ArrayList<Clase> getListaClases() {
+        return listaClases;
+    }
+
+    public void setListaClases(ArrayList<Clase> listaClases) {
+        this.listaClases = listaClases;
+    }
+
     // implementacion de los metodos
+    /**
+     * Método que agrega un cliente al gimnasio y verifica que no exista un usuario con el mismo número de identificación
+     * @param nombre nombre del cliente
+     * @param direccion direccion del cliente
+     * @param id cedula del cliente
+     * @param correo correo del cliente
+     * @param contrasena contraseña del cliente
+     * @param telefono telefono del cliente
+     * @throws Exception excepciones para cada uno de los parámetros
+     */
+    public void registrarCliente(String nombre, String direccion, String id, String correo, String contrasena, String telefono) throws Exception{
+
+        if(id == null || id.isBlank()){
+            throw new Exception("Recuerde que el número de cédula es obligatorio");
+        }
+
+        if(buscarCliente(id) != null){
+            throw new Exception("Ya existe un usuario con el número de identificación: "+id);
+        }
+
+        if(nombre == null || nombre.isBlank()){
+            throw new Exception("El nombre es obligatorio");
+        }
+
+        if(correo == null || correo.isBlank()){
+            throw new Exception("El correo electronico es obligatorio");
+        }
+
+        if(contrasena == null || contrasena.isBlank()){
+            throw new Exception("La contraseña es obligatoria");
+        }
+
+        if(contrasena.length() < 3) {
+            throw new Exception("La contraseña debe tener mínimo 6 caracteres");
+        }
+        // Creación del objeto Usuario usando un constructor
+        Cliente cliente = new Cliente(nombre, id,  direccion, telefono, correo, contrasena);
+
+        listaClientes.add(cliente);
+
+
+    }
+    /**
+     * Método que busca un Cliente con el numero de identificacion
+     * @param cedula cedula del cliente para buscarlo
+     * @return cliente o null si no existe
+     */
+    private Cliente buscarCliente(String cedula){
+        for(int i = 0; i < listaClientes.size(); i++){
+            if(listaClientes.get(i).getId().equals(cedula)){
+                return listaClientes.get(i);
+            }
+        }
+        return null;
+    }
+    /**
+     * Método que actualiza los datos de un usuario
+     * @param nombre nombre del cliente para actualizar
+     * @param direccion dirección del cliente para actualizar
+     * @param id cedula del cliente para actualizar
+     * @param correo correo del cliente para actualizar
+     * @param contrasena contraseña del cliente para actualizar
+     */
+    public void actualizarCliente(String nombre, String telefono, String direccion, String id, String correo, String contrasena) throws Exception{
+
+        if(nombre == null || nombre.isBlank()){
+            throw new Exception("El nombre es obligatorio");
+        }
+
+        if(direccion == null || direccion.isBlank()){
+            throw new Exception("La dirección es obligatoria");
+        }
+
+        if(correo == null || correo.isBlank()){
+            throw new Exception("El correo electronico es obligatorio");
+        }
+
+        if(contrasena == null || contrasena.isBlank()){
+            throw new Exception("La contraseña es obligatoria");
+        }
+
+        // Verificación de la existencia del cliente
+        Cliente clienteExistente = buscarCliente(id);
+        if (clienteExistente == null) {
+            throw new Exception("No existe un Cliente con el número de identificación: " + id);
+        }
+        // Validación para asegurar que la cédula no se cambie
+        if (!clienteExistente.getId().equals(id)) {
+            throw new Exception("La cédula no se puede cambiar.");
+        }
+
+        for (int i = 0; i < listaClientes.size(); i++) {
+            if (listaClientes.get(i).getId().equals(id)) {
+                Cliente cliente = new Cliente(nombre,telefono, direccion, id, correo, contrasena);
+                listaClientes.set(i, cliente);
+                break;
+            }
+        }
+    }
+
+    /**
+     * Metodo para eliminar un cliente con su cédula
+     * @param id cedula del cliente para eliminarlo de la lista de clientes
+     * @throws Exception
+     *
+     */
+    public void eliminarCliente(String id) throws Exception{
+        Cliente cliente = buscarCliente(id);
+        if (cliente != null) {
+            listaClientes.remove(cliente);
+        }else{
+            throw new Exception("El usuario no existe");
+        }
+    }
+
+    /**
+     * Método para que el cliente pueda buscar clases
+     */
+
+    /**
+     * Método para que el cliente pueda reservar una clase
+     */
+
+    /**
+     * Método para que el cliente cancele la reserva
+     */
 
 
 
