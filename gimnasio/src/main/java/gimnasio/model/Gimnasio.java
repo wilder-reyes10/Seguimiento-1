@@ -3,7 +3,9 @@ package gimnasio.model;
 import gimnasio.enumeraciones.TipoClase;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Gimnasio {
@@ -24,6 +26,8 @@ public class Gimnasio {
 
     private ArrayList<Entrenador> listaEntrenadores;
     private ArrayList<Clase> listaClases;
+
+    private ArrayList<Clase> inscritos;
 
 
     public String getNombre() {
@@ -297,7 +301,7 @@ public class Gimnasio {
     public void crearClase(TipoClase tipoClase, Entrenador entrenador, ArrayList<String> horario, int capacidad, LocalDate fechaFin, LocalDate fechaInicio, List<Reserva> inscritos, boolean disponible, String id) {
         Clase nuevaClase = new Clase(entrenador, horario, fechaFin, fechaInicio, inscritos, capacidad, tipoClase, disponible, id);
         listaClases.add(nuevaClase);
-        
+
         // Formatear la lista de horarios en una sola cadena
         String horariosFormateados = String.join(", ", horario);
 
@@ -316,6 +320,24 @@ public class Gimnasio {
     /**
      * Método para que el cliente pueda reservar una clase
      */
+    public void reservarClase(Clase clase, Cliente cliente, LocalDateTime fechaReserva, String codigoReserva) {
+        List<Reserva> inscritos = clase.getInscritos();
+
+        if (inscritos.size() < clase.getCapacidad()) {
+            Reserva nuevaReserva = new Reserva(fechaReserva, cliente, codigoReserva);
+            inscritos.add(nuevaReserva);
+
+            System.out.println("Reserva realizada con éxito para la clase: " +
+                    clase.getTipoClase() +
+                    "\nEntrenador: " + clase.getEntrenador().getNombre() +
+                    "\nHorarios: " + clase.getHorario() +
+                    "\nFecha de la reserva: " + fechaReserva +
+                    "\nCódigo de reserva: " + codigoReserva);
+        } else {
+            System.out.println("La clase está llena. No se puede realizar la reserva.");
+        }
+    }
+
 
 
     /**
