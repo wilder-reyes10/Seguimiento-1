@@ -2,6 +2,7 @@ package gimnasio.model;
 
 import gimnasio.enumeraciones.TipoClase;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -282,8 +283,40 @@ public class Gimnasio {
     }
 
     /**
+     * Método para crear una clase en el gimnasio
+     * @param tipoClase para saber qué tipo de clase será creada
+     * @param entrenador para asignarle un entrenador a cada clase
+     * @param horario para colocar el horario en el que se dictará la clase
+     * @param capacidad para manejar los cupos disponibles
+     * @param fechaFin para saber cuando se acaba la clase
+     * @param fechaInicio para saber cuando inicia la clase
+     * @param inscritos para poder asignar las personas que se inscriban a la clase
+     * @param disponible para saber si esa clase tiene disponibilidad
+     * @param id para que tenga un codigo
+     */
+    public void crearClase(TipoClase tipoClase, Entrenador entrenador, ArrayList<String> horario, int capacidad, LocalDate fechaFin, LocalDate fechaInicio, List<Reserva> inscritos, boolean disponible, String id) {
+        Clase nuevaClase = new Clase(entrenador, horario, fechaFin, fechaInicio, inscritos, capacidad, tipoClase, disponible, id);
+        listaClases.add(nuevaClase);
+        
+        // Formatear la lista de horarios en una sola cadena
+        String horariosFormateados = String.join(", ", horario);
+
+        // Imprimir el mensaje con todos los atributos
+        System.out.println("Clase creada: " + tipoClase +
+                "\nEntrenador: " + entrenador.getNombre() +
+                "\nHorarios: " + horariosFormateados +
+                "\nCapacidad: " + capacidad +
+                "\nFecha de inicio: " + fechaInicio +
+                "\nFecha de fin: " + fechaFin +
+                "\nInscritos: " + inscritos.size() + " personas" +
+                "\nDisponible: " + (disponible ? "Sí" : "No") +
+                "\nID de clase: " + id);
+    }
+
+    /**
      * Método para que el cliente pueda reservar una clase
      */
+
 
     /**
      * Método para que el cliente cancele la reserva
