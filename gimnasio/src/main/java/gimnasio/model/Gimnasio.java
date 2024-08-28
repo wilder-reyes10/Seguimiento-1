@@ -9,12 +9,21 @@ import java.util.Date;
 import java.util.List;
 
 public class Gimnasio {
-
+    /**
+     * Atributos de la clase Gimnasio
+     */
     private String nombre;
     private String direccion;
     private String telefono;
     private ArrayList<Cliente> listaClientes;
+    private ArrayList<Entrenador> listaEntrenadores;
+    private ArrayList<Clase> listaClases;
 
+    private ArrayList<Clase> inscritos;
+
+    /**
+     * Constructor de la clase Gimnasio
+     */
     public Gimnasio() {
         this.nombre = nombre;
         this.direccion = direccion;
@@ -22,14 +31,13 @@ public class Gimnasio {
         this.listaClientes = listaClientes;
         this.listaEntrenadores = listaEntrenadores;
         this.listaClases = listaClases;
+        this.inscritos = inscritos;
     }
 
-    private ArrayList<Entrenador> listaEntrenadores;
-    private ArrayList<Clase> listaClases;
-
-    private ArrayList<Clase> inscritos;
-
-
+    /**
+     * Getters y Setters de la clase gimnasio
+     * @return retorno de los atributos
+     */
     public String getNombre() {
         return nombre;
     }
@@ -156,6 +164,12 @@ public class Gimnasio {
 
     }
 
+    /**
+     * Método para registrar un entrenador
+     * @param id
+     * @return
+     * @throws Exception
+     */
     public Entrenador buscarEntrenador(String id)throws Exception{
 
         //Recorrer la lista de entrenadores
@@ -166,7 +180,7 @@ public class Gimnasio {
             }
         }
 
-        //Si no se encontró el estudiante se lanza una excepción
+        //Si no se encontró el entrenador lanza una excepción
         throw new Exception("El id "+id+" NO existe");
     } {
     }
@@ -177,11 +191,21 @@ public class Gimnasio {
     public void imprimirClientes(){
         System.out.println(listaClientes);
     }
+
+    /**
+     * Método para imprimir entrenadores
+     */
+    public void imprimirEntrenadores(){
+        System.out.println(listaEntrenadores);
+    }
+
+
     /**
      * Método que busca un Cliente con el numero de identificacion
      * @param id cedula del cliente para buscarlo
      * @return cliente o null si no existe
      */
+
     public Cliente buscarCliente(String id) throws Exception{
 
         //Recorrer la lista de clientes
@@ -338,11 +362,39 @@ public class Gimnasio {
         }
     }
 
-
-
     /**
-     * Método para que el cliente cancele la reserva
+     * Método para que el cliente pueda cancelar la reserva
+     * @param clase la clase a la que el usuario se inscribió
+     * @param idUsuario el numero de identificacion para buscar la reserva
+     * @param codigo el código de la reserva
      */
+    public void cancelarReserva(Clase clase, String idUsuario, String codigo) {
+        List<Reserva> inscritos = clase.getInscritos();
+        Reserva reservaACancelar = null;
+        boolean encontrada = false;
+
+        // Buscar la reserva correspondiente
+        for (Reserva reserva : inscritos) {
+            if (reserva.getCliente().getId().equals(idUsuario) && reserva.getCodigo().equals(codigo)) {
+                reservaACancelar = reserva;
+                encontrada = true;
+            }
+        }
+
+        if (encontrada) {
+            // Eliminar la reserva de la lista de inscritos
+            inscritos.remove(reservaACancelar);
+            System.out.println("Reserva cancelada con éxito. Código de reserva: " + codigo);
+
+            // Actualizar la disponibilidad de la clase
+            if (inscritos.size() < clase.getCapacidad()) {
+                clase.setDisponible(true);
+            }
+
+        } else {
+            System.out.println("No se encontró una reserva con el ID de usuario: " + idUsuario + " y código de reserva: " + codigo);
+        }
+    }
 
 
 
