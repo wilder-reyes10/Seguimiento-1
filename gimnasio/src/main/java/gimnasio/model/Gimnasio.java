@@ -394,7 +394,7 @@ public class Gimnasio {
             System.out.println("No se encontró una reserva con el ID de usuario: " + idUsuario + " y código de reserva: " + codigo);
         }
     }
-    
+
 
 
 
