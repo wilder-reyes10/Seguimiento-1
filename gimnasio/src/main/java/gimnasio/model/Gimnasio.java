@@ -204,6 +204,14 @@ public class Gimnasio {
         System.out.println(listaEntrenadores);
     }
 
+    /**
+     * Metodo para imprimir clases
+     */
+    public void imprimirClases(){
+        System.out.println(listaClases);
+
+    }
+
 
     /**
      * Método que busca un Cliente con el numero de identificacion
@@ -319,17 +327,16 @@ public class Gimnasio {
     }
 
     /**
-     * Método para crear una clase en el gimnasio
-     *
-     * @param tipoClase   para saber qué tipo de clase será creada
-     * @param entrenador  para asignarle un entrenador a cada clase
-     * @param horario     para colocar el horario en el que se dictará la clase
+     * * Método para crear una clase en el gimnasio
+     * @param tipoClase para saber qué tipo de clase será creada
+     * @param idEntrenador para asignarle un entrenador a cada clase
+     * @param horario para colocar el horario en el que se dictará la clase
      * @param capacidad   para manejar los cupos disponibles
-     * @param fechaFin    para saber cuando se acaba la clase
+     * @param fechaFin  para saber cuando se acaba la clase
      * @param fechaInicio para saber cuando inicia la clase
-     * @param inscritos   para poder asignar las personas que se inscriban a la clase
-     * @param disponible  para saber si esa clase tiene disponibilidad
-     * @param id          para que tenga un codigo
+     * @param disponible para poder asignar las personas que se inscriban a la clase
+     * @param id  para saber si esa clase tiene disponibilidad
+     * @throws Exception  para que tenga un codigo
      */
     public void crearClase(TipoClase tipoClase, String idEntrenador, List<String> horario, int capacidad, LocalDate fechaFin, LocalDate fechaInicio, boolean disponible, String id) throws Exception{
 
@@ -428,7 +435,7 @@ public class Gimnasio {
             }
         }
 
-        //TODO Pilas
+        //pendientes con este null
         return null;
     }
 
