@@ -176,7 +176,7 @@ public class Gimnasio {
      * @return
      * @throws Exception
      */
-    public Entrenador buscarEntrenador(String id) throws Exception {
+    public Entrenador buscarEntrenador(String id) {
 
         //Recorrer la lista de entrenadores
         for (int i = 0; i < listaEntrenadores.size(); i++) {
@@ -186,11 +186,8 @@ public class Gimnasio {
             }
         }
 
-        //Si no se encontró el entrenador lanza una excepción
-        throw new Exception("El id " + id + " NO existe");
-    }
+        return null;
 
-    {
     }
 
     /**
@@ -334,8 +331,15 @@ public class Gimnasio {
      * @param disponible  para saber si esa clase tiene disponibilidad
      * @param id          para que tenga un codigo
      */
-    public void crearClase(TipoClase tipoClase, Entrenador entrenador, ArrayList<String> horario, int capacidad, LocalDate fechaFin, LocalDate fechaInicio, List<Reserva> inscritos, boolean disponible, String id) {
-        Clase nuevaClase = new Clase(entrenador, horario, fechaFin, fechaInicio, inscritos, capacidad, tipoClase, disponible, id);
+    public void crearClase(TipoClase tipoClase, String idEntrenador, List<String> horario, int capacidad, LocalDate fechaFin, LocalDate fechaInicio, boolean disponible, String id) throws Exception{
+
+        Entrenador entrenador = buscarEntrenador(idEntrenador);
+
+        if(entrenador == null){
+            throw new Exception("El id del entrenador NO existe");
+        }
+
+        Clase nuevaClase = new Clase(entrenador, horario, fechaFin, fechaInicio, capacidad, tipoClase, disponible, id);
         listaClases.add(nuevaClase);
 
         // Formatear la lista de horarios en una sola cadena
@@ -424,20 +428,9 @@ public class Gimnasio {
             }
         }
 
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
+        //TODO Pilas
+        return null;
+    }
 
 
 }

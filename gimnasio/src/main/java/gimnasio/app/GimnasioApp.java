@@ -3,7 +3,9 @@ package gimnasio.app;
 import gimnasio.enumeraciones.TipoClase;
 import gimnasio.model.Gimnasio;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class GimnasioApp {
     public static void main(String[] args) throws Exception {
@@ -23,7 +25,7 @@ public class GimnasioApp {
 
         // METODOS DE GENERAR REPORTES, COMPLETAR....
 
-        gimnasio.crearClase(TipoClase.YOGA, "Mario",5:10);
+        gimnasio.crearClase(TipoClase.YOGA, "111", List.of("Lunes 9 am", "Jueves 10 am"),10, LocalDate.of(2024, 10, 5), LocalDate.of(2024, 9, 5), true, "Clase1");
 
         gimnasio.obtenerClaseMasPopular();
 

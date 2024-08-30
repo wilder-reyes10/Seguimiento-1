@@ -15,15 +15,15 @@ public class Clase {
     private List<Reserva> inscritos;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
-    private ArrayList<String> horario;
+    private List<String> horario;
     private Entrenador entrenador;
 
-    public Clase(Entrenador entrenador, ArrayList<String> horario, LocalDate fechaFin, LocalDate fechaInicio, List<Reserva> inscritos, int capacidad, TipoClase tipoClase, boolean disponible, String id) {
+    public Clase(Entrenador entrenador, List<String> horario, LocalDate fechaFin, LocalDate fechaInicio, int capacidad, TipoClase tipoClase, boolean disponible, String id) {
         this.entrenador = entrenador;
         this.horario = horario;
         this.fechaFin = fechaFin;
         this.fechaInicio = fechaInicio;
-        this.inscritos = inscritos;
+        this.inscritos = new ArrayList<>();
         this.capacidad = capacidad;
         this.tipoClase = tipoClase;
         this.disponible = disponible;
@@ -86,11 +86,11 @@ public class Clase {
         this.fechaFin = fechaFin;
     }
 
-    public ArrayList<String> getHorario() {
+    public List<String> getHorario() {
         return horario;
     }
 
-    public void setHorario(ArrayList<String> horario) {
+    public void setHorario(List<String> horario) {
         this.horario = horario;
     }
 
