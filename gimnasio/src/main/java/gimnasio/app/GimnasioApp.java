@@ -1,6 +1,9 @@
 package gimnasio.app;
 
+import gimnasio.enumeraciones.TipoClase;
 import gimnasio.model.Gimnasio;
+
+import java.time.LocalDateTime;
 
 public class GimnasioApp {
     public static void main(String[] args) throws Exception {
@@ -15,6 +18,15 @@ public class GimnasioApp {
         gimnasio.eliminarCliente("3108");
 
         gimnasio.imprimirClientes();
+
+
+
+        // METODOS DE GENERAR REPORTES, COMPLETAR....
+
+        gimnasio.crearClase(TipoClase.YOGA, "Mario",5:10);
+
+        gimnasio.obtenerClaseMasPopular();
+
 
     }
 }

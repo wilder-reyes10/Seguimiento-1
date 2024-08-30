@@ -30,12 +30,13 @@ public class Gimnasio {
         this.telefono = telefono;
         this.listaClientes = new ArrayList<>();
         this.listaEntrenadores = new ArrayList<>();
-        this.listaClases  = new ArrayList<>();
-        this.inscritos  = new ArrayList<>();
+        this.listaClases = new ArrayList<>();
+        this.inscritos = new ArrayList<>();
     }
 
     /**
      * Getters y Setters de la clase gimnasio
+     *
      * @return retorno de los atributos
      */
     public String getNombre() {
@@ -87,72 +88,76 @@ public class Gimnasio {
     }
 
     // implementacion de los metodos
+
     /**
      * Método que agrega un cliente al gimnasio y verifica que no exista un usuario con el mismo número de identificación
-     * @param nombre nombre del cliente
-     * @param direccion direccion del cliente
-     * @param id cedula del cliente
-     * @param correo correo del cliente
+     *
+     * @param nombre     nombre del cliente
+     * @param direccion  direccion del cliente
+     * @param id         cedula del cliente
+     * @param correo     correo del cliente
      * @param contrasena contraseña del cliente
-     * @param telefono telefono del cliente
+     * @param telefono   telefono del cliente
      * @throws Exception excepciones para cada uno de los parámetros
      */
-    public void registrarCliente(String nombre, String direccion, String id, String correo, String contrasena, String telefono) throws Exception{
+    public void registrarCliente(String nombre, String direccion, String id, String correo, String contrasena, String telefono) throws Exception {
 
-        if(id == null || id.isBlank()){
+        if (id == null || id.isBlank()) {
             throw new Exception("Recuerde que el número de cédula es obligatorio");
         }
 
-        if(buscarCliente(id) != null){
-            throw new Exception("Ya existe un usuario con el número de identificación: "+id);
+        if (buscarCliente(id) != null) {
+            throw new Exception("Ya existe un usuario con el número de identificación: " + id);
         }
 
-        if(nombre == null || nombre.isBlank()){
+        if (nombre == null || nombre.isBlank()) {
             throw new Exception("El nombre es obligatorio");
         }
-        if(telefono == null || telefono.isBlank()){
+        if (telefono == null || telefono.isBlank()) {
             throw new Exception("El teléfono es obligatorio");
         }
 
-        if(correo == null || correo.isBlank()){
+        if (correo == null || correo.isBlank()) {
             throw new Exception("El correo electrónico es obligatorio");
         }
 
-        if(contrasena == null || contrasena.isBlank()){
+        if (contrasena == null || contrasena.isBlank()) {
             throw new Exception("La contraseña es obligatoria");
         }
 
-        if(contrasena.length() < 6) {
+        if (contrasena.length() < 6) {
             throw new Exception("La contraseña debe tener mínimo 6 caracteres");
         }
         // Creación del objeto Usuario usando un constructor
-        Cliente cliente = new Cliente(nombre, id,  direccion, telefono, correo, contrasena);
+        Cliente cliente = new Cliente(nombre, id, direccion, telefono, correo, contrasena);
 
         listaClientes.add(cliente);
 
 
     }
+
     /**
      * Método que agrega un entrenador al gimnasio y verifica que no exista un entrenador con el mismo número de identificación
-     * @param nombre nombre del entrenador
-     * @param id cedula del entrenador
+     *
+     * @param nombre       nombre del entrenador
+     * @param id           cedula del entrenador
      * @param especialidad especialidad del entrenador
      * @throws Exception excepciones para cada uno de los parámetros
      */
-    public void registrarEntrenador(String nombre, String id, String especialidad) throws Exception{
+    public void registrarEntrenador(String nombre, String id, String especialidad) throws Exception {
 
-        if(id == null || id.isBlank()){
+        if (id == null || id.isBlank()) {
             throw new Exception("Recuerde que el número de cédula es obligatorio");
         }
 
-        if(buscarEntrenador(id) != null){
-            throw new Exception("Ya existe un entrenador con el número de identificación: "+id);
+        if (buscarEntrenador(id) != null) {
+            throw new Exception("Ya existe un entrenador con el número de identificación: " + id);
         }
 
-        if(nombre == null || nombre.isBlank()){
+        if (nombre == null || nombre.isBlank()) {
             throw new Exception("El nombre es obligatorio");
         }
-        if(especialidad == null || especialidad.isBlank()){
+        if (especialidad == null || especialidad.isBlank()) {
             throw new Exception("La especialidad es obligatoria");
         }
 
@@ -166,81 +171,87 @@ public class Gimnasio {
 
     /**
      * Método para registrar un entrenador
+     *
      * @param id
      * @return
      * @throws Exception
      */
-    public Entrenador buscarEntrenador(String id)throws Exception{
+    public Entrenador buscarEntrenador(String id) throws Exception {
 
         //Recorrer la lista de entrenadores
-        for(int i = 0; i<listaEntrenadores.size(); i++){
+        for (int i = 0; i < listaEntrenadores.size(); i++) {
             Entrenador entrenador = listaEntrenadores.get(i);
-            if(entrenador.getId().equals(id)){
+            if (entrenador.getId().equals(id)) {
                 return entrenador;
             }
         }
 
         //Si no se encontró el entrenador lanza una excepción
-        throw new Exception("El id "+id+" NO existe");
-    } {
+        throw new Exception("El id " + id + " NO existe");
+    }
+
+    {
     }
 
     /**
      * Método para imprimir clientes
      */
-    public void imprimirClientes(){
+    public void imprimirClientes() {
         System.out.println(listaClientes);
     }
 
     /**
      * Método para imprimir entrenadores
      */
-    public void imprimirEntrenadores(){
+    public void imprimirEntrenadores() {
         System.out.println(listaEntrenadores);
     }
 
 
     /**
      * Método que busca un Cliente con el numero de identificacion
+     *
      * @param id cedula del cliente para buscarlo
      * @return cliente o null si no existe
      */
 
-    public Cliente buscarCliente(String id){
+    public Cliente buscarCliente(String id) {
 
         //Recorrer la lista de clientes
-        for(int i = 0; i<listaClientes.size(); i++){
+        for (int i = 0; i < listaClientes.size(); i++) {
             Cliente cliente = listaClientes.get(i);
-            if(cliente.getId().equals(id)){
+            if (cliente.getId().equals(id)) {
                 return cliente;
             }
         }
 
         return null;
     }
+
     /**
      * Método que actualiza los datos de un usuario
-     * @param nombre nombre del cliente para actualizar
-     * @param direccion dirección del cliente para actualizar
-     * @param id cedula del cliente para actualizar
-     * @param correo correo del cliente para actualizar
+     *
+     * @param nombre     nombre del cliente para actualizar
+     * @param direccion  dirección del cliente para actualizar
+     * @param id         cedula del cliente para actualizar
+     * @param correo     correo del cliente para actualizar
      * @param contrasena contraseña del cliente para actualizar
      */
-    public void actualizarCliente(String nombre, String telefono, String direccion, String id, String correo, String contrasena) throws Exception{
+    public void actualizarCliente(String nombre, String telefono, String direccion, String id, String correo, String contrasena) throws Exception {
 
-        if(nombre == null || nombre.isBlank()){
+        if (nombre == null || nombre.isBlank()) {
             throw new Exception("El nombre es obligatorio");
         }
 
-        if(direccion == null || direccion.isBlank()){
+        if (direccion == null || direccion.isBlank()) {
             throw new Exception("La dirección es obligatoria");
         }
 
-        if(correo == null || correo.isBlank()){
+        if (correo == null || correo.isBlank()) {
             throw new Exception("El correo electronico es obligatorio");
         }
 
-        if(contrasena == null || contrasena.isBlank()){
+        if (contrasena == null || contrasena.isBlank()) {
             throw new Exception("La contraseña es obligatoria");
         }
 
@@ -256,7 +267,7 @@ public class Gimnasio {
 
         for (int i = 0; i < listaClientes.size(); i++) {
             if (listaClientes.get(i).getId().equals(id)) {
-                Cliente cliente = new Cliente(nombre,telefono, direccion, id, correo, contrasena);
+                Cliente cliente = new Cliente(nombre, telefono, direccion, id, correo, contrasena);
                 listaClientes.set(i, cliente);
                 break;
             }
@@ -265,23 +276,24 @@ public class Gimnasio {
 
     /**
      * Metodo para eliminar un cliente con su cédula
+     *
      * @param id cedula del cliente para eliminarlo de la lista de clientes
      * @throws Exception
-     *
      */
-    public void eliminarCliente(String id) throws Exception{
+    public void eliminarCliente(String id) throws Exception {
         Cliente cliente = buscarCliente(id);
         if (cliente != null) {
             listaClientes.remove(cliente);
-        }else{
+        } else {
             throw new Exception("El usuario no existe");
         }
     }
 
     /**
      * Método que le permite al cliente buscar una clase
+     *
      * @param tipoClase el cliente puede buscar la clase con el tipo de clase que desee
-     * @param nombre se necesita el nombre del entrenador para saber con quién puede ver la clase
+     * @param nombre    se necesita el nombre del entrenador para saber con quién puede ver la clase
      * @return
      */
     public List<Clase> buscarClase(TipoClase tipoClase, String nombre) {
@@ -297,7 +309,7 @@ public class Gimnasio {
 
         if (clasesEncontradas.isEmpty()) {
             System.out.println("No se encontraron clases para el tipo '" + tipoClase +
-                    "' con el entrenador '" + nombre+ "'.");
+                    "' con el entrenador '" + nombre + "'.");
         } else {
             for (Clase clase : clasesEncontradas) {
                 System.out.println("Clase: " + clase.getTipoClase() +
@@ -311,15 +323,16 @@ public class Gimnasio {
 
     /**
      * Método para crear una clase en el gimnasio
-     * @param tipoClase para saber qué tipo de clase será creada
-     * @param entrenador para asignarle un entrenador a cada clase
-     * @param horario para colocar el horario en el que se dictará la clase
-     * @param capacidad para manejar los cupos disponibles
-     * @param fechaFin para saber cuando se acaba la clase
+     *
+     * @param tipoClase   para saber qué tipo de clase será creada
+     * @param entrenador  para asignarle un entrenador a cada clase
+     * @param horario     para colocar el horario en el que se dictará la clase
+     * @param capacidad   para manejar los cupos disponibles
+     * @param fechaFin    para saber cuando se acaba la clase
      * @param fechaInicio para saber cuando inicia la clase
-     * @param inscritos para poder asignar las personas que se inscriban a la clase
-     * @param disponible para saber si esa clase tiene disponibilidad
-     * @param id para que tenga un codigo
+     * @param inscritos   para poder asignar las personas que se inscriban a la clase
+     * @param disponible  para saber si esa clase tiene disponibilidad
+     * @param id          para que tenga un codigo
      */
     public void crearClase(TipoClase tipoClase, Entrenador entrenador, ArrayList<String> horario, int capacidad, LocalDate fechaFin, LocalDate fechaInicio, List<Reserva> inscritos, boolean disponible, String id) {
         Clase nuevaClase = new Clase(entrenador, horario, fechaFin, fechaInicio, inscritos, capacidad, tipoClase, disponible, id);
@@ -363,9 +376,10 @@ public class Gimnasio {
 
     /**
      * Método para que el cliente pueda cancelar la reserva
-     * @param clase la clase a la que el usuario se inscribió
+     *
+     * @param clase     la clase a la que el usuario se inscribió
      * @param idUsuario el numero de identificacion para buscar la reserva
-     * @param codigo el código de la reserva
+     * @param codigo    el código de la reserva
      */
     public void cancelarReserva(Clase clase, String idUsuario, String codigo) {
         List<Reserva> inscritos = clase.getInscritos();
@@ -394,6 +408,31 @@ public class Gimnasio {
             System.out.println("No se encontró una reserva con el ID de usuario: " + idUsuario + " y código de reserva: " + codigo);
         }
     }
+
+    // Metodo Clase mas activa,
+    // usuario mas activo(top3 calorias quemadas),
+    // tipo ejercicio que mas se practica
+
+    public Clase obtenerClaseMasPopular() {
+        Clase claseMasPopular = null;
+        int maxInscritos = 0;
+
+        for (Clase clase : listaClases) {
+            if (clase.getInscritos().size() > maxInscritos) {
+                maxInscritos = clase.getInscritos().size();
+                claseMasPopular = clase;
+            }
+        }
+
+
+}
+
+
+
+
+
+
+
 
 
 
