@@ -46,4 +46,14 @@ public class Cliente extends  Usuario {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "correo='" + correo + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", contrasena='" + contrasena + '\'' +
+                '}';
+    }
 }

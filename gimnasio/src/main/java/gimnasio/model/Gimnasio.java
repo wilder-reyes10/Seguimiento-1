@@ -24,14 +24,14 @@ public class Gimnasio {
     /**
      * Constructor de la clase Gimnasio
      */
-    public Gimnasio() {
+    public Gimnasio(String nombre, String direccion, String telefono) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.listaClientes = listaClientes;
-        this.listaEntrenadores = listaEntrenadores;
-        this.listaClases = listaClases;
-        this.inscritos = inscritos;
+        this.listaClientes = new ArrayList<>();
+        this.listaEntrenadores = new ArrayList<>();
+        this.listaClases  = new ArrayList<>();
+        this.inscritos  = new ArrayList<>();
     }
 
     /**
@@ -206,7 +206,7 @@ public class Gimnasio {
      * @return cliente o null si no existe
      */
 
-    public Cliente buscarCliente(String id) throws Exception{
+    public Cliente buscarCliente(String id){
 
         //Recorrer la lista de clientes
         for(int i = 0; i<listaClientes.size(); i++){
@@ -216,8 +216,7 @@ public class Gimnasio {
             }
         }
 
-        //Si no se encontró el estudiante se lanza una excepción
-        throw new Exception("El id "+id+" NO existe");
+        return null;
     }
     /**
      * Método que actualiza los datos de un usuario
@@ -395,6 +394,7 @@ public class Gimnasio {
             System.out.println("No se encontró una reserva con el ID de usuario: " + idUsuario + " y código de reserva: " + codigo);
         }
     }
+    
 
 
 
