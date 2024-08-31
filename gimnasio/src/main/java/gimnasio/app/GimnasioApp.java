@@ -8,6 +8,7 @@ import gimnasio.model.Gimnasio;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static gimnasio.enumeraciones.TipoClase.MEDITACION;
@@ -54,21 +55,15 @@ public class GimnasioApp {
 
 
         //reservar clases
-        String idCliente = "1238"; // ID del cliente
-        Cliente cliente = gimnasio.buscarCliente(idCliente); // Buscar cliente por ID
-
-        if (cliente != null) {
-            gimnasio.reservarClase(MEDITACION, cliente, fechaHoraActual, "2109");
-        } else {
-            System.out.println("Cliente con ID " + idCliente + " no encontrado.");
-        }
+        gimnasio.reservarClase(MEDITACION, cliente, fechaHoraActual, "2109");
 
         //Registrar entrenamientos
         gimnasio.registrarEntrenamiento("1238", TipoEjercicio.EQUILIBRIO, 60, 1000, fechaHoraActual);
 
         //Cancelar clases
-        gimnasio.cancelarReserva(MEDITACION, "1238", "2109", clase);
 
+        //Registrar entrenamientos
+        gimnasio.registrarEntrenamiento("1238", TipoEjercicio.EQUILIBRIO, 60, 1000, fechaHoraActual);
 
         // METODOS DE GENERAR REPORTES, COMPLETAR....
         gimnasio.obtenerClaseMasPopular();

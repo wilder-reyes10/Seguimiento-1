@@ -367,7 +367,7 @@ public class Gimnasio {
     /**
      * Método para que el cliente pueda reservar una clase
      */
-    public void reservarClase(TipoClase tipoClase, Cliente cliente, LocalDateTime fechaReserva, String codigoReserva) {
+    public void reservarClase(TipoClase tipoClase,Cliente cliente, LocalDateTime fechaReserva, String codigoReserva) {
 
         Clase claseReservada = null;
 
