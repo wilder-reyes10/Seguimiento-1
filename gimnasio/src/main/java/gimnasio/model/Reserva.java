@@ -38,12 +38,4 @@ public class Reserva {
         this.codigo = codigo;
     }
 
-    @Override
-    public String toString() {
-        return "Reserva{" +
-                "fechaReserva=" + fechaReserva +
-                ", cliente=" + cliente +
-                ", codigo='" + codigo + '\'' +
-                '}';
-    }
 }
