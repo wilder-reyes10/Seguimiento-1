@@ -451,9 +451,7 @@ public class Gimnasio {
                 claseMasPopular = clase;
             }
         }
-
-        //pendientes con este null
-        return null;
+        return claseMasPopular ;
     }
 
     /**

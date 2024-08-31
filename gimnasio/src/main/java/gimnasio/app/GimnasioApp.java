@@ -44,7 +44,7 @@ public class GimnasioApp {
 
         // Datos de prueba
         gimnasio.crearClase(TipoClase.YOGA, "147", List.of("Lunes 9 am", "Jueves 10 am"), 10, LocalDate.of(2024, 10, 5), LocalDate.of(2024, 9, 5), true, "Clase1");
-        gimnasio.crearClase(MEDITACION, "789", List.of("Lunes 9 am", "Jueves 10 am", "viernes 8 am"), 8, LocalDate.of(2024, 11, 8), LocalDate.of(2024, 10, 6), true, "Clase2");
+        gimnasio.crearClase(TipoClase.MEDITACION, "789", List.of("Lunes 9 am", "Jueves 10 am", "viernes 8 am"), 8, LocalDate.of(2024, 11, 8), LocalDate.of(2024, 10, 6), true, "Clase2");
         gimnasio.crearClase(TipoClase.YOGA, "456", List.of("Lunes 9 am", "martes 10 am"), 10, LocalDate.of(2024, 12, 7), LocalDate.of(2024, 11, 5), false, "Clase3");
 
         gimnasio.imprimirClases();
@@ -54,25 +54,25 @@ public class GimnasioApp {
         gimnasio.buscarClase(TipoClase.YOGA, "147");
 
 
-        //reservar clases
-        gimnasio.reservarClase(MEDITACION, cliente, fechaHoraActual, "2109");
+        //reservar clases MEDITACION, cliente, fechaHoraActual, "2109");
+        gimnasio.reservarClase(TipoClase.YOGA,new Cliente("Mauricio", "Barrio los álamos", "1238", "mauro@gmail.com", "1234567", "3218042309"),LocalDateTime.now(),"123");
 
         //Registrar entrenamientos
         gimnasio.registrarEntrenamiento("1238", TipoEjercicio.EQUILIBRIO, 60, 1000, fechaHoraActual);
-
         //Cancelar clases
 
         //Registrar entrenamientos
         gimnasio.registrarEntrenamiento("1238", TipoEjercicio.EQUILIBRIO, 60, 1000, fechaHoraActual);
 
-        // METODOS DE GENERAR REPORTES, COMPLETAR....
-        gimnasio.obtenerClaseMasPopular();
-        gimnasio.obtenerTresUsuariosMasActivos();
-        gimnasio.obtenerTipoEjercicioMasPracticado();
 
         //Consultar entrenamientos
         gimnasio.consultarEntrenamientos("1238");
         gimnasio.consultarEntrenamientos("1509");
+
+        // METODOS DE GENERAR REPORTES
+        gimnasio.obtenerClaseMasPopular();
+        gimnasio.obtenerTresUsuariosMasActivos();
+        gimnasio.obtenerTipoEjercicioMasPracticado();
 
     }
 
