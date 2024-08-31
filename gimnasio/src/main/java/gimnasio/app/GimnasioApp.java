@@ -49,11 +49,8 @@ public class GimnasioApp {
         gimnasio.imprimirClases();
 
 
-
         //Buscar clase
         gimnasio.buscarClase(TipoClase.YOGA, "147");
-
-
 
 
         //reservar clases
