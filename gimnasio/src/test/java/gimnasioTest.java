@@ -1,3 +1,8 @@
+import gimnasio.model.Gimnasio;
+import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 public class gimnasioTest {
 
     @Test
@@ -5,7 +10,7 @@ public class gimnasioTest {
 
 
         //Se crea una instancia de la clase Gimnasio
-        Gimnasio gimnasio = new Gimnasio();
+        Gimnasio gimnasio = new Gimnasio("Gym 24/7", "calle 19A", "3235659878");
 
 
         //Se verifica que no se lance ninguna excepción al registrar un cliente
@@ -25,4 +30,3 @@ public class gimnasioTest {
     }
 }
 
-}

@@ -16,4 +16,11 @@ public class Entrenador extends Usuario{
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
     }
+
+    @Override
+    public String toString() {
+        return "Entrenador{" +
+                "especialidad='" + especialidad + '\'' +
+                '}';
+    }
 }

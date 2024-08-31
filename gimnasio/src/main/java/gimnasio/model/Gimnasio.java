@@ -1,6 +1,7 @@
 package gimnasio.model;
 
 import gimnasio.enumeraciones.TipoClase;
+import gimnasio.enumeraciones.TipoEjercicio;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -170,18 +171,16 @@ public class Gimnasio {
     }
 
     /**
-     * Método para registrar un entrenador
-     *
-     * @param id
+     * Método para buscar un entrenador
+     * @param idEntrenador el entrenador se busca con su cedula
      * @return
-     * @throws Exception
      */
-    public Entrenador buscarEntrenador(String id) {
+    public Entrenador buscarEntrenador(String idEntrenador) {
 
         //Recorrer la lista de entrenadores
         for (int i = 0; i < listaEntrenadores.size(); i++) {
             Entrenador entrenador = listaEntrenadores.get(i);
-            if (entrenador.getId().equals(id)) {
+            if (entrenador.getId().equals(idEntrenador)) {
                 return entrenador;
             }
         }
@@ -242,7 +241,7 @@ public class Gimnasio {
      * @param correo     correo del cliente para actualizar
      * @param contrasena contraseña del cliente para actualizar
      */
-    public void actualizarCliente(String nombre, String telefono, String direccion, String id, String correo, String contrasena) throws Exception {
+    public void actualizarCliente(String nombre, String telefono, String direccion,String id, String correo, String contrasena) throws Exception {
 
         if (nombre == null || nombre.isBlank()) {
             throw new Exception("El nombre es obligatorio");
@@ -298,27 +297,27 @@ public class Gimnasio {
      * Método que le permite al cliente buscar una clase
      *
      * @param tipoClase el cliente puede buscar la clase con el tipo de clase que desee
-     * @param nombre    se necesita el nombre del entrenador para saber con quién puede ver la clase
+     * @param id    se necesita el id del entrenador para saber con quien va a ver la clase
      * @return
      */
-    public List<Clase> buscarClase(TipoClase tipoClase, String nombre) {
+    public List<Clase> buscarClase(TipoClase tipoClase, String id) {
 
         List<Clase> clasesEncontradas = new ArrayList<>();
 
         for (Clase clase : listaClases) {
             if (clase.getTipoClase() == tipoClase &&
-                    clase.getEntrenador().getNombre().equalsIgnoreCase(nombre)) {
+                    clase.getEntrenador().getId().equalsIgnoreCase(id)) {
                 clasesEncontradas.add(clase);
             }
         }
 
         if (clasesEncontradas.isEmpty()) {
             System.out.println("No se encontraron clases para el tipo '" + tipoClase +
-                    "' con el entrenador '" + nombre + "'.");
+                    "' con el entrenador '" + id + "'.");
         } else {
             for (Clase clase : clasesEncontradas) {
                 System.out.println("Clase: " + clase.getTipoClase() +
-                        ", Entrenador: " + clase.getEntrenador().getNombre() +
+                        ", Entrenador: " + clase.getEntrenador().getId() +
                         ", Horarios: " + clase.getHorario());
             }
         }
@@ -329,22 +328,23 @@ public class Gimnasio {
     /**
      * * Método para crear una clase en el gimnasio
      * @param tipoClase para saber qué tipo de clase será creada
-     * @param idEntrenador para asignarle un entrenador a cada clase
+     * @param id para asignarle un entrenador a cada clase
      * @param horario para colocar el horario en el que se dictará la clase
      * @param capacidad   para manejar los cupos disponibles
      * @param fechaFin  para saber cuando se acaba la clase
      * @param fechaInicio para saber cuando inicia la clase
      * @param disponible para poder asignar las personas que se inscriban a la clase
-     * @param id  para saber si esa clase tiene disponibilidad
+     * @param idClase para saber si esa clase tiene disponibilidad
      * @throws Exception  para que tenga un codigo
      */
-    public void crearClase(TipoClase tipoClase, String idEntrenador, List<String> horario, int capacidad, LocalDate fechaFin, LocalDate fechaInicio, boolean disponible, String id) throws Exception{
+    public void crearClase(TipoClase tipoClase, String id, List<String> horario, int capacidad, LocalDate fechaFin, LocalDate fechaInicio, boolean disponible, String idClase) throws Exception{
 
-        Entrenador entrenador = buscarEntrenador(idEntrenador);
+        Entrenador entrenador = buscarEntrenador(id);
 
         if(entrenador == null){
             throw new Exception("El id del entrenador NO existe");
         }
+
 
         Clase nuevaClase = new Clase(entrenador, horario, fechaFin, fechaInicio, capacidad, tipoClase, disponible, id);
         listaClases.add(nuevaClase);
@@ -367,17 +367,34 @@ public class Gimnasio {
     /**
      * Método para que el cliente pueda reservar una clase
      */
-    public void reservarClase(Clase clase, Cliente cliente, LocalDateTime fechaReserva, String codigoReserva) {
-        List<Reserva> inscritos = clase.getInscritos();
+    public void reservarClase(TipoClase tipoClase, Cliente cliente, LocalDateTime fechaReserva, String codigoReserva) {
 
-        if (inscritos.size() < clase.getCapacidad()) {
+        Clase claseReservada = null;
+
+        // Buscar la clase por tipoClase
+        for (Clase clase : listaClases) {
+            if (clase.getTipoClase().equals(tipoClase)) {
+                claseReservada = clase;
+                break;
+            }
+        }
+
+        if (claseReservada == null) {
+            System.out.println("No se encontró una clase con el tipo: " + tipoClase);
+            return;
+        }
+
+        // Realizar la reserva si la clase fue encontrada
+        List<Reserva> inscritos = claseReservada.getInscritos();
+
+        if (inscritos.size() < claseReservada.getCapacidad()) {
             Reserva nuevaReserva = new Reserva(fechaReserva, cliente, codigoReserva);
             inscritos.add(nuevaReserva);
 
             System.out.println("Reserva realizada con éxito para la clase: " +
-                    clase.getTipoClase() +
-                    "\nEntrenador: " + clase.getEntrenador().getNombre() +
-                    "\nHorarios: " + clase.getHorario() +
+                    claseReservada.getTipoClase() +
+                    "\nEntrenador: " + claseReservada.getEntrenador().getNombre() +
+                    "\nHorarios: " + claseReservada.getHorario() +
                     "\nFecha de la reserva: " + fechaReserva +
                     "\nCódigo de reserva: " + codigoReserva);
         } else {
@@ -392,7 +409,7 @@ public class Gimnasio {
      * @param idUsuario el numero de identificacion para buscar la reserva
      * @param codigo    el código de la reserva
      */
-    public void cancelarReserva(Clase clase, String idUsuario, String codigo) {
+    public void cancelarReserva(TipoClase tipoClase, String idUsuario, String codigo, Clase clase) {
         List<Reserva> inscritos = clase.getInscritos();
         Reserva reservaACancelar = null;
         boolean encontrada = false;
@@ -439,5 +456,131 @@ public class Gimnasio {
         return null;
     }
 
+    /**
+     * Método para obtener los tres usuarios más activos
+     * @return se retorna la lista con los usuarios más activos
+     */
+    public List<Cliente> obtenerTresUsuariosMasActivos() {
+        List<Cliente> usuariosMasActivos = new ArrayList<>();
+        int[] maxCalorias = {0, 0, 0};
 
+        for (Cliente cliente : listaClientes) {
+            int caloriasTotales = calcularCaloriasTotales(cliente);
+            boolean insertado = false;
+
+            for (int i = 0; i < 3; i++) {
+                if (caloriasTotales > maxCalorias[i] && !insertado) {
+                    usuariosMasActivos.add(i, cliente);
+                    maxCalorias[i] = caloriasTotales;
+                    insertado = true;
+                }
+            }
+
+            if (usuariosMasActivos.size() > 3) {
+                usuariosMasActivos.remove(3);
+            }
+        }
+
+        return usuariosMasActivos;
+    }
+
+    /**
+     * Método para calcular las calorías totales de cada cliente de acuerdo a su entrenamiento
+     * @param cliente se revisan los entrenamientos de cada cliente
+     * @return
+     */
+
+    private int calcularCaloriasTotales(Cliente cliente) {
+        int totalCalorias = 0;
+        for (Entrenamiento entrenamiento : cliente.getEntrenamientos()) {
+            totalCalorias += entrenamiento.getCaloriasQuemadas();
+        }
+        return totalCalorias;
+    }
+
+    /**
+     * Método para obtener el tipo de ejercicio más practicado en el gimnasio
+     * @return se retorna el tipo de ejercicio más pracitcado
+     */
+    public TipoEjercicio obtenerTipoEjercicioMasPracticado() {
+        // Inicializa las variables para almacenar el tiempo total por tipo de ejercicio
+        int[] tiempoPorEjercicio = new int[TipoEjercicio.values().length];
+
+        // Suma la duración de los entrenamientos por tipo de ejercicio
+        for (Cliente cliente : listaClientes) {
+            for (Entrenamiento entrenamiento : cliente.getEntrenamientos()) {
+                TipoEjercicio tipo = entrenamiento.getTipoEjercicio();
+                tiempoPorEjercicio[tipo.ordinal()] += entrenamiento.getDuracion();
+            }
+        }
+
+        // Encuentra el tipo de ejercicio con mayor duración acumulada
+        TipoEjercicio tipoMasPracticado = null;
+        int maxTiempo = 0;
+
+        for (TipoEjercicio tipo : TipoEjercicio.values()) {
+            int tiempo = tiempoPorEjercicio[tipo.ordinal()];
+            if (tiempo > maxTiempo) {
+                maxTiempo = tiempo;
+                tipoMasPracticado = tipo;
+            }
+        }
+
+        return tipoMasPracticado;
+    }
+
+    /**
+     * Método para que el cliente pueda registrar los entrenamientos
+     * @param id para agregar el entrenamiento a ese cliente
+     * @param tipoEjercicio para que se pueda determinar que tipo de ejercicio realizó
+     * @param duracion para saber cuánto duró
+     * @param caloriasQuemadas para registrar cuántas calorías quemó
+     * @param fecha para que pueda mirar la fecha en tiempo real en la que se realizó el ejercicio
+     * @return retorna un mensaje con la cédula del cliente para que sepa que se registró el entrenamiento
+     */
+    public String registrarEntrenamiento(String id, TipoEjercicio tipoEjercicio, int duracion, int caloriasQuemadas, LocalDateTime fecha) {
+        Cliente cliente = buscarCliente(id);
+
+        if (cliente == null) {
+            return "Cliente no encontrado con el ID: " + id;
+        }
+
+        Entrenamiento nuevoEntrenamiento = new Entrenamiento(tipoEjercicio, duracion,fecha, caloriasQuemadas );
+        cliente.agregarEntrenamiento(nuevoEntrenamiento);
+
+        return "Entrenamiento registrado con éxito para el cliente: " + cliente.getId();
+    }
+
+    /**
+     * Método para que el cliente pueda consultar los entrenamientos, fechas, detalles del ejercicio
+     * @param idCliente para poder buscar los entrenamientos que ese cliente tiene registrados
+     * @return retorna todos los detalles del entrenamiento
+     */
+    public String consultarEntrenamientos(String idCliente) {
+        Cliente cliente = buscarCliente(idCliente);
+
+        if (cliente == null) {
+            return "Cliente no encontrado con el ID: " + idCliente;
+        }
+
+        List<Entrenamiento> entrenamientos = cliente.getEntrenamientos();
+
+        if (entrenamientos.isEmpty()) {
+            return "No hay entrenamientos registrados para el cliente: " + cliente.getId();
+        }
+
+        StringBuilder detallesEntrenamientos = new StringBuilder();
+        detallesEntrenamientos.append("Entrenamientos del cliente ID: ").append(idCliente).append("\n");
+
+        for (Entrenamiento e : entrenamientos) {
+            detallesEntrenamientos.append("Fecha: ").append(e.getFecha())
+                    .append(", Ejercicio: ").append(e.getTipoEjercicio())
+                    .append(", Duración: ").append(e.getDuracion()).append(" minutos")
+                    .append(", Calorías quemadas: ").append(e.getCaloriasQuemadas()).append("\n");
+        }
+
+        return detallesEntrenamientos.toString();
+    }
 }
+
+

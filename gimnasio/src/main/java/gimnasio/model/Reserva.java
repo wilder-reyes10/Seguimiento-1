@@ -37,4 +37,13 @@ public class Reserva {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+
+    @Override
+    public String toString() {
+        return "Reserva{" +
+                "fechaReserva=" + fechaReserva +
+                ", cliente=" + cliente +
+                ", codigo='" + codigo + '\'' +
+                '}';
+    }
 }

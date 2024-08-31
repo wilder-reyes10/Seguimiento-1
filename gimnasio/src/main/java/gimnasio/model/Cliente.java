@@ -1,5 +1,8 @@
 package gimnasio.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cliente extends  Usuario {
 
     private String correo;
@@ -7,12 +10,14 @@ public class Cliente extends  Usuario {
     private String telefono;
     private String contrasena;
 
-    public Cliente(String nombre, String id, String correo, String contrasena, String direccion, String telefono) {
+    private List<Entrenamiento> entrenamientos;
+
+    public Cliente(String nombre, String id, String correo, String direccion, String telefono, String contrasena) {
         super(nombre, id);
         this.correo = correo;
-        this.contrasena = contrasena;
         this.direccion = direccion;
         this.telefono = telefono;
+        this.contrasena = contrasena;
     }
 
     public String getCorreo() {
@@ -47,12 +52,21 @@ public class Cliente extends  Usuario {
         this.contrasena = contrasena;
     }
 
+    public void agregarEntrenamiento(Entrenamiento entrenamiento) {
+        entrenamientos.add(entrenamiento);
+    }
+
+    public List<Entrenamiento> getEntrenamientos() {
+        return entrenamientos;
+    }
+
+
     @Override
     public String toString() {
         return "Cliente{" +
-                "correo='" + correo + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", telefono='" + telefono + '\'' +
+                "correo='" + telefono + '\'' +
+                ", direccion='" + correo + '\'' +
+                ", telefono='" + direccion + '\'' +
                 ", contrasena='" + contrasena + '\'' +
                 '}';
     }

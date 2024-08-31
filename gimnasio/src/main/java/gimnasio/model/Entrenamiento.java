@@ -8,14 +8,12 @@ public class Entrenamiento {
 
     private TipoEjercicio tipoEjercicio;
     private int duracion;
-    private String numeroSesion;
     private LocalDateTime fecha;
     private int caloriasQuemadas;
 
-    public Entrenamiento(TipoEjercicio tipoEjercicio, int duracion, String numeroSesion, LocalDateTime fecha, int caloriasQuemadas) {
+    public Entrenamiento(TipoEjercicio tipoEjercicio, int duracion, LocalDateTime fecha, int caloriasQuemadas) {
         this.tipoEjercicio = tipoEjercicio;
         this.duracion = duracion;
-        this.numeroSesion = numeroSesion;
         this.fecha = fecha;
         this.caloriasQuemadas = caloriasQuemadas;
     }
@@ -36,14 +34,6 @@ public class Entrenamiento {
         this.duracion = duracion;
     }
 
-    public String getNumeroSesion() {
-        return numeroSesion;
-    }
-
-    public void setNumeroSesion(String numeroSesion) {
-        this.numeroSesion = numeroSesion;
-    }
-
     public int getCaloriasQuemadas() {
         return caloriasQuemadas;
     }
@@ -58,5 +48,15 @@ public class Entrenamiento {
 
     public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
+    }
+
+    @Override
+    public String toString() {
+        return "Entrenamiento{" +
+                "tipoEjercicio=" + tipoEjercicio +
+                ", duracion=" + duracion +
+                ", fecha=" + fecha +
+                ", caloriasQuemadas=" + caloriasQuemadas +
+                '}';
     }
 }

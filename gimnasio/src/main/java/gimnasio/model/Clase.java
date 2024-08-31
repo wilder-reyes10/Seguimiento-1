@@ -101,4 +101,19 @@ public class Clase {
     public void setEntrenador(Entrenador entrenador) {
         this.entrenador = entrenador;
     }
+
+    @Override
+    public String toString() {
+        return "Clase{" +
+                "id='" + id + '\'' +
+                ", disponible=" + disponible +
+                ", tipoClase=" + tipoClase +
+                ", capacidad=" + capacidad +
+                ", inscritos=" + inscritos +
+                ", fechaInicio=" + fechaInicio +
+                ", fechaFin=" + fechaFin +
+                ", horario=" + horario +
+                ", entrenador=" + entrenador +
+                '}';
+    }
 }
